@@ -10,6 +10,29 @@
   function ToBuyController(ShoppingListCheckOffService){
     var toBuy = this;
 
+    toBuy.toBuyList = ShoppingListCheckOffService.getToBuyList();
+
+    toBuy.addItem = function (name, quantity, index){
+      ShoppingListCheckOffService.addToBoughtList(name, quantity, index)
+    };
+  };
+
+  AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
+  function AlreadyBoughtController(ShoppingListCheckOffService){
+    var bought = this;
+
+    bought.boughtList = ShoppingListCheckOffService.getBoughtList();
+  };
+
+  function ShoppingListCheckOffService(){
+    var service = this;
+
+    //hold the items to buy
+    var toBuy = [];
+    //hold the items bought
+    var bought = [];
+
+    //initialy populated items
     var items = [{
       name : 'Cookies',
       quantity : 10
@@ -27,25 +50,9 @@
       quantity : 20
     }];
 
-    toBuy.toBuyList = ShoppingListCheckOffService.getToBuyList();
-
     for (var i = 0; i < items.length; i++) {
-      toBuy.toBuyList.push(items[i]);
+      toBuy.push(items[i]);
     }
-  };
-
-  AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
-  function AlreadyBoughtController(ShoppingListCheckOffService){
-
-  };
-
-  function ShoppingListCheckOffService(){
-    var service = this;
-
-    //hold the items to buy
-    var toBuy = [];
-    //hold the items bought
-    var bought = [];
 
     service.addToBoughtList = function (itemName, itemQuantity, itemIndex){
       var item = {
