@@ -1,6 +1,24 @@
-<ul>
+<!--<ul>
   <li ng-repeat="item in foundArray">
     {{item.name}}, {{item.short_name}}, {{item.description}}
     <button class="btn btn-danger btn-sm" ng-click="onRemove({index : $index});">Don't want this one!</button>
   </li>
-</ul>
+</ul>-->
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Short Name</td>
+      <td>Quantity</td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in foundArray">
+      <td>{{item.name}}</td>
+      <td>{{item.short_name}}</td>
+      <td>{{item.description}}</td>
+      <td><button class="btn btn-danger btn-sm" ng-click="onRemove({index : $index});">Don't want this one!</button></td>
+    </tr>
+  </tbody>
+</table>
