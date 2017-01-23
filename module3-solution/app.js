@@ -9,7 +9,12 @@
   //foundItems directive
   function FoundItems(){
     var ddo = {
-      templateUrl : 'foundItems.html'
+      restrict : 'E',
+      templateUrl : 'foundItems.html',
+      scope : {
+        foundArray : '<foundItems',
+        onRemove : '&onRemove'
+      }
     };
 
     return ddo;
@@ -21,13 +26,22 @@
     //holds the searchTerm
     narrow.searchTerm = '';
     narrow.found = [];
+    narrow.showError = false;
+
     //click event
     narrow.narrowItDown = function () {
+      narrow.showError = false;
+      if (narrow.searchTerm === '') {
+        narrow.showError = true;
+        narrow.found = [];
+        return;
+      }
+
       var promise = MenuSearchService.getMatchedMenuItems();
 
       promise.then(function(result){
         var foundItems = result.data.menu_items;
-        console.log(foundItems.length);
+
         //loop through and find matching description
         for (var i = 0; i < foundItems.length; i++) {
           //console.log(foundItems.menu_items[i].description);
@@ -38,8 +52,17 @@
         }
         //assign to found
         narrow.found = foundItems;
+
+        console.log(foundItems.length);
+        if (foundItems.length === 0) {
+          narrow.showError = true;
+        }
       });
     };
+    //function to remove a item
+    narrow.removeItem = function(index) {
+      narrow.found.splice(index, 1);
+    }
   };
 
   MenuSearchService.$inject = ['$http']
