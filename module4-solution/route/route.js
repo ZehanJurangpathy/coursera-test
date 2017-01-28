@@ -22,8 +22,14 @@
       })
 
       .state('items', {
-        url: '/items',
-        templateUrl: 'items.html'
+        url: '/items/{categoryShortName}',
+        templateUrl: 'items.html',
+        controller:"ItemsController as items",
+        resolve: {
+          itemList:['$stateParams','MenuDataService', function ($stateParams, MenuDataService) {
+            return MenuDataService.getItemsForCategory($stateParams.categoryShortName);
+          }]
+        }
       })
 
       .state('home', {

@@ -8,6 +8,5 @@
   function CategoriesController(categoryList) {
     var category = this;
     category.categories = categoryList.data;
-    console.log(categoryList.data[1]);
   }
 })();
