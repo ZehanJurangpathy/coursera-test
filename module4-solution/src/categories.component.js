@@ -3,7 +3,7 @@
 
   angular.module('MenuApp')
   .component('categories',{
-    templateUrl : '/components/categoriesComponent.html',
+    templateUrl : 'components/categoriesComponent.html',
     bindings : {
       categoryList : "<"
     }
